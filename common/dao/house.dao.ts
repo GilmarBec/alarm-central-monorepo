@@ -1,6 +1,6 @@
 import { Alarm, AlarmStatus, HouseDto } from '../models/interfaces/house.dto';
 import { HouseEntity } from '../models/schemas/house.entity';
-import { Mongo } from '../../../common/helpers/mongo';
+import { Mongo } from '../helpers/mongo';
 
 class HouseDao {
     COLLECTION = 'houses';
@@ -27,6 +27,14 @@ class HouseDao {
         await this.db.addDocument(house);
 
         return house;
+    }
+
+    async update(id: string, houseDto: Partial<HouseDto>) {
+        await this.db.update(id, houseDto)
+    }
+
+    async findById(id: string) {
+        return await this.db.findById(id)
     }
 }
 

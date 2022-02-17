@@ -1,5 +1,6 @@
 import express from 'express';
 import { Server } from '@overnightjs/core';
+import morgan from 'morgan';
 
 export abstract class AbstractApplication extends Server {
     protected constructor() {
@@ -19,5 +20,6 @@ export abstract class AbstractApplication extends Server {
     protected setupMiddlewares() {
         this.app.use(express.json());
         this.app.use(express.urlencoded({ extended: true }));
+        this.app.use(morgan('dev'));
     }
 }

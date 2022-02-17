@@ -1,8 +1,8 @@
 import { ControllerExceptionHandler } from '../../../common/decorators/controller.exception.handler.decorator';
 import { Request, Response } from 'express';
 import { Controller, Post } from '@overnightjs/core';
-import { HouseDto } from '../models/interfaces/house.dto';
-import houseDao from '../dao/house.dao';
+import { HouseDto } from '../../../common/models/interfaces/house.dto';
+import houseDao from '../../../common/dao/house.dao';
 
 @Controller('houses')
 class HouseController {

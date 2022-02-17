@@ -1,21 +1,19 @@
-import { MongoClient } from 'mongodb';
+import { MongoClient, ObjectId } from 'mongodb';
 import { ConnectionStatusEnum } from '../models/enum/connection.status.enum';
-import { DefaultEntity } from '../models/interfaces/default.entity';
 import Logger from './logger';
 
 export class Mongo {
-    DB_NAME = process.env.DB_NAME ?? ''
-    collection: string
-
-    protected client: MongoClient;
+    public DB_NAME = process.env.DB_NAME ?? '';
+    public collection: string;
     public transactionStatus: ConnectionStatusEnum = ConnectionStatusEnum.INACTIVE;
+    protected client: MongoClient;
 
     constructor(collection: string) {
-        this.collection = collection
+        this.collection = collection;
         this.client = new MongoClient(process.env.MONGODB_URL ?? '');
     }
 
-    async addDocument(object: DefaultEntity): Promise<void> {
+    async addDocument(object: any): Promise<void> {
         const connection = await this.connectionHandler();
 
         await this.client
@@ -26,6 +24,32 @@ export class Mongo {
         await this.connectionHandler(connection);
     }
 
+    async update(id: string, object: any): Promise<any> {
+        const connection = await this.connectionHandler();
+
+        await this.client
+            .db(this.DB_NAME)
+            .collection(this.collection)
+            .updateOne({ _id: new ObjectId(id) }, { $set: { ...object } });
+
+        await this.connectionHandler(connection);
+    }
+
+    async findById(id: string) {
+        const connection = await this.connectionHandler();
+
+        const docs = await this.client
+            .db(this.DB_NAME)
+            .collection(this.collection)
+            .find({ _id: new ObjectId(id) }, { limit: 1 });
+
+        const data = (await docs.toArray()).shift();
+
+        await this.connectionHandler(connection);
+
+        return data;
+    }
+
     async startTransaction(): Promise<MongoClient> {
         if (this.transactionStatus === ConnectionStatusEnum.INACTIVE) {
             this.transactionStatus = ConnectionStatusEnum.ACTIVE;
@@ -33,7 +57,7 @@ export class Mongo {
         }
 
         Logger.warn('Transaction already started');
-        return this.client
+        return this.client;
     }
 
     async endTransaction(): Promise<void> {
@@ -54,17 +78,17 @@ export class Mongo {
         }
     }
 
-    protected async connectionHandler(connection?: {shouldHandle: boolean}): Promise<{ shouldHandle: boolean }> {
+    protected async connectionHandler(connection?: { shouldHandle: boolean }): Promise<{ shouldHandle: boolean }> {
         if (connection?.shouldHandle === false || (connection === undefined && this.transactionStatus)) {
             return { shouldHandle: false };
         }
 
-        if(!this.transactionStatus) {
+        if (!this.transactionStatus) {
             await this.startTransaction();
-            return { shouldHandle: true }
+            return { shouldHandle: true };
         }
 
         await this.endTransaction();
-        return { shouldHandle: true }
+        return { shouldHandle: true };
     }
 }
