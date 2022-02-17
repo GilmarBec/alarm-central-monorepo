@@ -1,6 +1,6 @@
 {
   "private": true,
-  "workspaces": ["alarm-put", "alarm-status", "house", "house-monitoring", "notification"],
+  "workspaces": ["alarm-put", "alarm-status", "house", "house-monitoring", "notification", "gateway"],
   "scripts": {
     "house": "cd house && yarn dev && cd .."
   }
