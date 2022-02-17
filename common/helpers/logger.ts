@@ -1,7 +1,7 @@
 import {Request} from "express"
 
 const winston = require('winston');
-const dirname = __dirname + '/../../log'
+const dirname = __dirname + '/../../logs'
 
 const logger = winston.createLogger({
     format: winston.format.combine(
