@@ -1,4 +1,5 @@
 export interface HouseDto {
+    _id: string;
     address: string;
     ownerName: string;
     phone: string;

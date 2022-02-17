@@ -4,6 +4,7 @@
   "scripts": {
     "house": "cd house && yarn dev && cd ..",
     "gateway": "cd gateway && yarn dev && cd ..",
-    "alarm-put": "cd alarm-put && yarn dev && cd .."
+    "alarm-put": "cd alarm-put && yarn dev && cd ..",
+    "alarm-status": "cd alarm-status && yarn dev && cd .."
   }
 }

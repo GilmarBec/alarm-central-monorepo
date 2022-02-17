@@ -38,4 +38,5 @@ class HouseDao {
     }
 }
 
-export default new HouseDao();
+const instance = new HouseDao();
+export default instance;

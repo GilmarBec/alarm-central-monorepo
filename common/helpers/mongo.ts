@@ -35,7 +35,7 @@ export class Mongo {
         await this.connectionHandler(connection);
     }
 
-    async findById(id: string) {
+    async findById(id: string): Promise<any> {
         const connection = await this.connectionHandler();
 
         const docs = await this.client
@@ -44,6 +44,21 @@ export class Mongo {
             .find({ _id: new ObjectId(id) }, { limit: 1 });
 
         const data = (await docs.toArray()).shift();
+
+        await this.connectionHandler(connection);
+
+        return data;
+    }
+
+    async findBy(filter: object, options?: object): Promise<any[]> {
+        const connection = await this.connectionHandler();
+
+        const docs = await this.client
+            .db(this.DB_NAME)
+            .collection(this.collection)
+            .find(filter, options);
+
+        const data = await docs.toArray();
 
         await this.connectionHandler(connection);
 
