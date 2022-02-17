@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 export abstract class Slack {
-    async sendMessage(...params: any): Promise<void> {console.log(3)
-        const slackMsg = this.buildMessage(...params);console.log(4)
+    async sendMessage(...params: any): Promise<void> {
+        const slackMsg = this.buildMessage(...params);
 
         await axios.post(process.env.SLACK_NOTIFICATION ?? '', slackMsg);
     }
