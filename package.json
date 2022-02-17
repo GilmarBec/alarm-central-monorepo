@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "workspaces": ["alarm-put", "alarm-status", "house", "house-monitoring", "notification"],
+  "scripts": {
+    "test": "ts-node tests/index.ts"
+  }
+}
