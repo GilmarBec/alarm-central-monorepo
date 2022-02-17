@@ -19,10 +19,6 @@
     "outDir": "./dist",
     "rootDir": "./",
     "baseUrl": ".",
-    "paths": {
-      "@house/*": ["./house/src/*"],
-      "@common/*": ["./common/*"]
-    },
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "strictPropertyInitialization": false

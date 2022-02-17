@@ -33,8 +33,8 @@ class HouseDao {
         await this.db.update(id, houseDto)
     }
 
-    async findById(id: string) {
-        return await this.db.findById(id)
+    async findById(id: string): Promise<HouseDto | undefined> {
+        return this.db.findById(id)
     }
 }
 

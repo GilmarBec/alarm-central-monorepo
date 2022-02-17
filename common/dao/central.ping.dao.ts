@@ -1,5 +1,4 @@
 import { Mongo } from '../helpers/mongo';
-import { HouseDto } from '../models/interfaces/house.dto';
 import { CentralPingEntity } from '../models/schemas/central.ping.entity';
 import { CentralPingDto } from '../models/interfaces/central.ping.dto';
 
@@ -11,7 +10,7 @@ class CentralPingDao {
         this.db = new Mongo(this.COLLECTION);
     }
 
-    async create(houseId: string): Promise<HouseDto> {
+    async create(houseId: string): Promise<CentralPingDto> {
         const house = new CentralPingEntity({
             houseId,
             date: String(new Date().toJSON()),
@@ -23,7 +22,7 @@ class CentralPingDao {
     }
 
     async findByHouseId(houseId: string): Promise<CentralPingDto[]> {
-        return await this.db.findBy({ houseId: houseId });
+        return this.db.findBy({ houseId: houseId });
     }
 }
 

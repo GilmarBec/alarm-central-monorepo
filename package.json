@@ -2,9 +2,10 @@
   "private": true,
   "workspaces": ["alarm-put", "alarm-status", "house", "house-monitoring", "notification", "gateway"],
   "scripts": {
-    "house": "cd house && yarn dev && cd ..",
-    "gateway": "cd gateway && yarn dev && cd ..",
-    "alarm-put": "cd alarm-put && yarn dev && cd ..",
-    "alarm-status": "cd alarm-status && yarn dev && cd .."
+    "house": "cd house && yarn dev",
+    "gateway": "cd gateway && yarn dev",
+    "alarm-put": "cd alarm-put && yarn dev",
+    "alarm-status": "cd alarm-status && yarn dev",
+    "house-alert": "cd house-alert && yarn dev"
   }
 }
