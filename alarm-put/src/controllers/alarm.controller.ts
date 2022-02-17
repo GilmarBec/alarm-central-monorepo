@@ -4,6 +4,7 @@ import { Controller, Put } from '@overnightjs/core';
 import houseDao from '../../../common/dao/house.dao';
 import { AlarmStatus, HouseDto } from '../../../common/models/interfaces/house.dto';
 import { AlarmErrorResponse } from '../exception/error.response';
+import { ErrorResponse } from '../../../common/exceptions/error.response';
 
 @Controller('houses')
 class AlarmController {
@@ -15,6 +16,11 @@ class AlarmController {
 
         if (!Object.values(AlarmStatus).includes(status)) {
             throw AlarmErrorResponse.ALARM_STATUS_INVALID
+        }
+
+        const houseDoc = await houseDao.findById(houseId);
+        if (!houseDoc) {
+            throw ErrorResponse.NOT_FOUND
         }
 
         const house: Partial<HouseDto> = {

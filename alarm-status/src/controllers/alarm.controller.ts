@@ -14,7 +14,7 @@ class AlarmController {
 
         const house = await houseDao.findById(houseId);
         if (!house) {
-            throw ErrorResponse.DAO_DOCUMENT_NOT_FOUND
+            throw ErrorResponse.NOT_FOUND
         }
 
         const ping = await centralPingDao.create(houseId)

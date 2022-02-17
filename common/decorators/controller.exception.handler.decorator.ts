@@ -24,7 +24,7 @@ export function ControllerExceptionHandler() {
                 await originalMethod.bind(this)(request, response);
             } catch (exception: ErrorResponse | Error | any) {
                 Logger.error(`${propertyName} failed.`, {
-                    exception: {...exception},
+                    exception: exception,
                     baseUrl: request.baseUrl,
                     body: request.body,
                     params: request.params,
